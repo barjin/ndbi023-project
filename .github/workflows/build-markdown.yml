@@ -1,0 +1,51 @@
+name: Build notebook & deploy to GitHub Pages
+
+on: [push]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Setup Python & Jupyter
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build the markdown from the Jupyter notebook
+        run: jupyter nbconvert --to markdown --output-dir docs/ index.ipynb
+
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/master'
+        uses: actions/configure-pages@v3
+
+      - name: Upload Artifact
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs/
+
+  deploy-coverage:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: build
+    
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      # environment created automatically by GitHub
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
