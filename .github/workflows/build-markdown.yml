@@ -22,7 +22,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build the markdown from the Jupyter notebook
-        run: jupyter nbconvert --to markdown --output-dir docs/ index.ipynb
+        run: jupyter nbconvert --to markdown --output-dir docs/ index.ipynb && cp -r img/ docs/img
 
       - name: Build the markdown to HTML with Jekyll
         uses: actions/jekyll-build-pages@v1
