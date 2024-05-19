@@ -47,9 +47,7 @@ def get_map_categories(df, categories, title='', scale_label=''):
 
     return fig
 
-plt.ion()
-
-def get_map_scale(df, color_attribute='', title='', scale_label=''):
+def get_map_scale(df, color_attribute='', title='', scale_label='', lat_attribute='locality_gps_lat', lon_attribute='locality_gps_lon'):
     """
         Given a dataframe with columns 'locality_gps_lat' and 'locality_gps_lon' and a name of a column with a numerical value,
         this function returns a matplotlib figure with a map of the points in the dataframe, colored by the numerical value.
@@ -68,13 +66,13 @@ def get_map_scale(df, color_attribute='', title='', scale_label=''):
 
     for index, row in df.iterrows():
         point = CircleMarker(
-            (row['locality_gps_lon'], 
-             row['locality_gps_lat']), 
+            (row[lon_attribute], 
+             row[lat_attribute]), 
             color=tuple(np.floor(np.array(color_mapper.to_rgba(row[color_attribute])[:3]) * 255).astype(int)), 
             width=10)
         m.add_marker(point)
 
-    image = m.render(zoom=12)
+    image = m.render(zoom=12, center=(14.4399466,50.0859818))
 
     fig, ax = matplotlib.pyplot.subplots(figsize=(15, 10))
     fig.suptitle(title, verticalalignment='bottom', fontsize=16, y=0.9)
@@ -87,6 +85,7 @@ def get_map_scale(df, color_attribute='', title='', scale_label=''):
     ax.set_xticks([])
     ax.set_yticks([])
 
+    plt.close()
+
     return fig
 
-plt.ioff()
