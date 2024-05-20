@@ -1,0 +1,8 @@
+data/sreality/index.csv filter=lfs diff=lfs merge=lfs -text
+data/airbnb/index.csv filter=lfs diff=lfs merge=lfs -text
+data/osm/osm_atms.csv filter=lfs diff=lfs merge=lfs -text
+data/osm/osm_highways_nodes.csv filter=lfs diff=lfs merge=lfs -text
+data/osm/osm_parks.csv filter=lfs diff=lfs merge=lfs -text
+data/osm/osm_parks_nodes.csv filter=lfs diff=lfs merge=lfs -text
+data/osm/osm_schools.csv filter=lfs diff=lfs merge=lfs -text
+data/pid_stops/index.csv filter=lfs diff=lfs merge=lfs -text

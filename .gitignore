@@ -1,4 +1,4 @@
 .venv/
-data/
+data/**/*.json
 docs/
 .ipynb_checkpoints/
