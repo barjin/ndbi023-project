@@ -47,7 +47,7 @@ def get_map_categories(df, categories, title='', scale_label=''):
 
     return fig
 
-def get_map_scale(df, color_attribute='', title='', scale_label='', lat_attribute='locality_gps_lat', lon_attribute='locality_gps_lon'):
+def get_map_scale(df, color_attribute='', title='', scale_label='', lat_attribute='locality_gps_lat', lon_attribute='locality_gps_lon', cmap='inferno'):
     """
         Given a dataframe with columns 'locality_gps_lat' and 'locality_gps_lon' and a name of a column with a numerical value,
         this function returns a matplotlib figure with a map of the points in the dataframe, colored by the numerical value.
@@ -61,7 +61,7 @@ def get_map_scale(df, color_attribute='', title='', scale_label='', lat_attribut
     
     color_mapper = cm.ScalarMappable(
         norm=color_norm, 
-        cmap='inferno'
+        cmap=cmap
     )
 
     for index, row in df.iterrows():
